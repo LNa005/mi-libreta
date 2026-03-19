@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Raleway&weight=600&size=32&pause=1000&color=C084FC&center=true&vCenter=true&width=500&lines=📓+Mi+Libreta;Tu+libreta+digital+bonita+🌸;Siempre+a+mano+✨" alt="Typing SVG" />
-
 > *Una app de escritorio transparente para dejar de usar libretas de papel* 🌸
 
 ![Estado](https://img.shields.io/badge/estado-en%20desarrollo-c084fc?style=flat-square&labelColor=1e1b4b)
