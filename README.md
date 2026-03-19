@@ -14,10 +14,6 @@
 
 **Mi Libreta** es una app de escritorio con efecto glassmorphic pensada para estudiantes. Reemplaza las libretas físicas con algo más organizado, bonito y siempre a mano.
 
-Diseñada específicamente para el ciclo formativo con 7 asignaturas:
-
-`🌷 Lenguaje de marcas` · `💜 Programación` · `🩷 Sistemas informáticos` · `🌸 Bases de datos` · `💗 Entornos de desarrollo` · `🪻 Fundamentos de la programación` · `✨ Itinerario para la empleabilidad`
-
 ---
 
 ## 💎 Aspecto
