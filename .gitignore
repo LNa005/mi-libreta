@@ -1,0 +1,35 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+dist-electron/
+release/
+out/
+
+# Base de datos local
+*.db
+*.db-shm
+*.db-wal
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VSCode
+.vscode/
+!.vscode/extensions.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+*.tsbuildinfo
