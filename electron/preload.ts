@@ -6,8 +6,8 @@ contextBridge.exposeInMainWorld('db', {
   deleteSubject: (id: number) => ipcRenderer.invoke('db:deleteSubject', id),
 
   getNotes: (subjectId?: number) => ipcRenderer.invoke('db:getNotes', subjectId),
-  createNote: (subjectId: number | null, title: string, content: string) => ipcRenderer.invoke('db:createNote', subjectId, title, content),
-  updateNote: (id: number, title: string, content: string) => ipcRenderer.invoke('db:updateNote', id, title, content),
+  createNote: (subjectId: number | null, title: string, content: string, noteDate?: string) => ipcRenderer.invoke('db:createNote', subjectId, title, content, noteDate),
+  updateNote: (id: number, title: string, content: string, noteDate?: string) => ipcRenderer.invoke('db:updateNote', id, title, content, noteDate),
   deleteNote: (id: number) => ipcRenderer.invoke('db:deleteNote', id),
 
   getDeadlines: () => ipcRenderer.invoke('db:getDeadlines'),

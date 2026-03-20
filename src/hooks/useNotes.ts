@@ -11,13 +11,13 @@ export function useNotes(subjectId?: number) {
 
   useEffect(() => { load() }, [load])
 
-  const add = useCallback(async (title: string, content: string) => {
-    await window.db.createNote(subjectId ?? null, title, content)
+  const add = useCallback(async (title: string, content: string, noteDate?: string) => {
+    await window.db.createNote(subjectId ?? null, title, content, noteDate)
     load()
   }, [subjectId, load])
 
-  const update = useCallback(async (id: number, title: string, content: string) => {
-    await window.db.updateNote(id, title, content)
+  const update = useCallback(async (id: number, title: string, content: string, noteDate?: string) => {
+    await window.db.updateNote(id, title, content, noteDate)
     load()
   }, [load])
 

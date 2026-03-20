@@ -17,12 +17,13 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
   CREATE TABLE IF NOT EXISTS notes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    subject_id INTEGER REFERENCES subjects(id) ON DELETE CASCADE,
-    title TEXT NOT NULL,
-    content TEXT DEFAULT '',
-    created_at TEXT DEFAULT (datetime('now')),
-    updated_at TEXT DEFAULT (datetime('now'))
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  subject_id INTEGER REFERENCES subjects(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  content TEXT DEFAULT '',
+  note_date TEXT DEFAULT NULL,
+  created_at TEXT DEFAULT (datetime('now')),
+  updated_at TEXT DEFAULT (datetime('now'))
   );
   CREATE TABLE IF NOT EXISTS deadlines (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,6 +60,9 @@ db.exec(`
     created_at TEXT DEFAULT (datetime('now'))
   );
 `)
+try {
+  db.prepare('ALTER TABLE notes ADD COLUMN note_date TEXT DEFAULT NULL').run()
+} catch {}
 
 ipcMain.handle('db:getSubjects', () => db.prepare('SELECT * FROM subjects ORDER BY name').all())
 ipcMain.handle('db:createSubject', (_, name, color) => db.prepare('INSERT INTO subjects (name, color) VALUES (?, ?) RETURNING *').get(name, color))
@@ -68,8 +72,13 @@ ipcMain.handle('db:getNotes', (_, subjectId) => {
   if (subjectId) return db.prepare('SELECT * FROM notes WHERE subject_id = ? ORDER BY updated_at DESC').all(subjectId)
   return db.prepare('SELECT * FROM notes ORDER BY updated_at DESC').all()
 })
-ipcMain.handle('db:createNote', (_, subjectId, title, content) => db.prepare('INSERT INTO notes (subject_id, title, content) VALUES (?, ?, ?) RETURNING *').get(subjectId, title, content))
-ipcMain.handle('db:updateNote', (_, id, title, content) => db.prepare("UPDATE notes SET title = ?, content = ?, updated_at = datetime('now') WHERE id = ?").run(title, content, id))
+ipcMain.handle('db:createNote', (_, subjectId, title, content, noteDate) =>
+  db.prepare('INSERT INTO notes (subject_id, title, content, note_date) VALUES (?, ?, ?, ?) RETURNING *')
+    .get(subjectId, title, content, noteDate ?? null))
+
+ipcMain.handle('db:updateNote', (_, id, title, content, noteDate) =>
+  db.prepare("UPDATE notes SET title = ?, content = ?, note_date = ?, updated_at = datetime('now') WHERE id = ?")
+    .run(title, content, noteDate ?? null, id))
 ipcMain.handle('db:deleteNote', (_, id) => db.prepare('DELETE FROM notes WHERE id = ?').run(id))
 
 ipcMain.handle('db:getDeadlines', () => db.prepare('SELECT * FROM deadlines ORDER BY due_date ASC').all())

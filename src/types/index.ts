@@ -10,6 +10,7 @@ export interface Note {
   subject_id: number | null
   title: string
   content: string
+  note_date: string | null
   created_at: string
   updated_at: string
 }
